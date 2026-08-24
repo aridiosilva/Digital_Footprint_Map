@@ -275,14 +275,15 @@ e remoções. Não republicar páginas completas ou conteúdo protegido.
 | `notes` | ressalvas e tarefas de validação |
 | `fingerprint` | SHA-256 usado na deduplicação |
 
-## Licença e direitos autorais
+## Licença
 
-Copyright (c) 2026 Aridio Silva. Todos os direitos reservados.
+Copyright (c) 2026 Aridio Silva. Este projeto é distribuído sob a
+[Apache License 2.0](LICENSE).
 
-O conteúdo deste repositório é proprietário. Não é permitida a utilização,
-cópia, modificação, distribuição, sublicenciamento, venda ou criação de obras
-derivadas sem autorização prévia e por escrito do titular dos direitos
-autorais. Consulte [`LICENSE`](LICENSE) para os termos completos.
+A licença permite uso, cópia, modificação e distribuição, inclusive comercial,
+desde que a licença e os avisos aplicáveis sejam preservados. Ela também inclui
+uma concessão expressa de patentes e não exige que obras derivadas sejam
+publicadas como código aberto.
 
 ## Aviso
 
