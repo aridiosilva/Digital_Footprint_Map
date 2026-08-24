@@ -275,6 +275,15 @@ e remoções. Não republicar páginas completas ou conteúdo protegido.
 | `notes` | ressalvas e tarefas de validação |
 | `fingerprint` | SHA-256 usado na deduplicação |
 
+## Licença e direitos autorais
+
+Copyright (c) 2026 Aridio Silva. Todos os direitos reservados.
+
+O conteúdo deste repositório é proprietário. Não é permitida a utilização,
+cópia, modificação, distribuição, sublicenciamento, venda ou criação de obras
+derivadas sem autorização prévia e por escrito do titular dos direitos
+autorais. Consulte [`LICENSE`](LICENSE) para os termos completos.
+
 ## Aviso
 
 Ferramenta de OSINT defensiva e autoconsulta. Respeite LGPD, direitos autorais, termos dos sites e pedidos de remoção. URLs e trechos são evidências; não representam confirmação automática de identidade.
