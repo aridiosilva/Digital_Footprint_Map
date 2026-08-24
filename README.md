@@ -12,7 +12,7 @@ Projeto reproduzível para coletar, registrar, revisar e publicar evidências p�
 - geração de PDF;
 - relatórios anteriores em `docs/relatorios/`;
 - dados bibliográficos iniciais e referências conhecidas;
-- conector opcional do Notion, desativado por padrão;
+- sincronização opcional, idempotente e explícita com uma fonte de dados do Notion;
 - testes automatizados e exemplo de execução.
 
 O software coleta apenas conteúdo publicamente acessível e não tenta contornar login, CAPTCHA, robots.txt ou bloqueios. Resultados devem ser revisados por uma pessoa antes da publicação, sobretudo para evitar homônimos.
@@ -27,6 +27,53 @@ source .venv/bin/activate        # Windows: .venv\\Scripts\\activate
 pip install -e '.[dev]'
 cp .env.example .env
 ```
+
+## Testes
+
+Instale as dependências de desenvolvimento e execute a suíte completa:
+
+```bash
+pip install -e '.[dev]'
+python -m pytest
+python -m ruff check .
+```
+
+Para testar apenas a integração com o Notion, sem token nem acesso à conta:
+
+```bash
+python -m pytest tests/test_notion_sync.py
+```
+
+Os testes usam diretórios temporários e clientes simulados; não gravam no
+SQLite do projeto nem enviam dados ao Notion. A suíte cobre modelos,
+deduplicação no banco, exportações e a sincronização idempotente do Notion.
+As coletas de fontes externas devem continuar sendo verificadas manualmente,
+pois dependem de disponibilidade, políticas e conteúdo de serviços públicos.
+
+Em pull requests e alterações na `main`, o GitHub Actions executa os mesmos
+testes e o lint automaticamente.
+
+## Atualizações e proteção da `main`
+
+A branch `main` é a versão estável do projeto e possui um ruleset ativo:
+
+- alterações devem ser enviadas por pull request; não há envio direto à `main`;
+- exclusão da branch e *force push* são bloqueados;
+- o check obrigatório `test` deve concluir com sucesso antes do merge;
+- a revisão obrigatória está configurada como zero, permitindo que o mantenedor
+  integre a própria PR depois que o check estiver aprovado.
+
+Para atualizar o projeto, crie uma branch, publique-a e abra uma pull request:
+
+```bash
+git switch -c feat/minha-alteracao
+git add .
+git commit -m "Descreva a alteração"
+git push -u origin feat/minha-alteracao
+```
+
+Depois de a CI ficar verde, a pull request poderá ser integrada à `main`. Esse
+fluxo protege o histórico estável sem exigir a participação de outro revisor.
 
 ## Uso rápido
 
@@ -54,9 +101,26 @@ pegada import-csv data/import/google_scholar.csv --kind citation
 pegada import-csv data/import/biblioteca_nacional.csv --kind book
 ```
 
-## Notion (posteriormente)
+## Integração com o Notion
 
-Quando desejar, defina `NOTION_TOKEN` e `NOTION_DATABASE_ID` no `.env`, instale o extra `notion` e execute `pegada notion-sync`. Nada é enviado ao Notion sem esse comando explícito.
+1. Crie uma integração em `notion.so/profile/integrations` e copie o token.
+2. No Notion, crie uma fonte de dados com as colunas descritas em
+   `docs/INTEGRACAO_NOTION.md` e compartilhe-a com a integração.
+3. Copie `.env.example` para `.env` e preencha `NOTION_TOKEN` e
+   `NOTION_DATA_SOURCE_ID`.
+4. Instale e simule antes de gravar:
+
+```bash
+pip install -e '.[notion]'
+pegada notion-sync --dry-run --only-reviewed
+pegada notion-sync --only-reviewed
+```
+
+A sincronização usa o campo `Fingerprint` para criar ou atualizar páginas sem
+duplicar registros. O conector valida as colunas remotas antes da execução,
+suporta a API atual baseada em `data_source_id` e não envia dados sem o comando
+explícito `notion-sync`. Consulte `docs/INTEGRACAO_NOTION.md` para a
+configuração completa.
 
 ## Estrutura do Projeto
 
@@ -66,7 +130,7 @@ Digital_Footprint_Map/
 ├── .gitignore                           # Arquivos locais e dados gerados que não devem ser versionados.
 ├── LICENSE                              # Licença de uso do projeto.
 ├── Makefile                             # Atalhos para instalação, testes e execução das tarefas comuns.
-├── pyproject.toml                       # Metadados, dependências e configuração do pacote Python.
+├── pyproject.toml                       # Versão 1.1, dependências e configuração do pacote Python.
 ├── README.md                            # Visão geral, instalação, uso e orientações do projeto.
 │
 ├── config/
@@ -83,6 +147,7 @@ Digital_Footprint_Map/
 ├── docs/
 │   ├── ARQUITETURA.md                   # Arquitetura e componentes do sistema.
 │   ├── DICIONARIO_DE_DADOS.md           # Campos, entidades e significado dos dados coletados.
+│   ├── INTEGRACAO_NOTION.md              # Esquema, credenciais e execução segura da sincronização.
 │   ├── MAPA_DO_COLETOR.md               # Fluxo e escopo dos coletores de evidências.
 │   ├── METODOLOGIA.md                   # Critérios de coleta, revisão e validação das evidências.
 │   └── relatorios/
@@ -109,13 +174,14 @@ Digital_Footprint_Map/
 │       ├── exporters.py                 # Exportação de evidências em JSON, CSV e Markdown.
 │       ├── importers.py                 # Importação de dados CSV e conjuntos iniciais.
 │       ├── models.py                    # Modelos e normalização das entidades de evidência.
-│       ├── notion_sync.py               # Integração opcional e explícita com o Notion.
+│       ├── notion_sync.py               # Sincronização idempotente e explícita com o Notion.
 │       └── report.py                    # Geração dos relatórios do mapa da pegada digital.
 │
 └── tests/
     ├── test_db.py                       # Testes da persistência e auditoria no SQLite.
     ├── test_exporters.py                # Testes das exportações de dados e relatórios.
-    └── test_models.py                   # Testes dos modelos e da normalização de evidências.
+    ├── test_models.py                   # Testes dos modelos e da normalização de evidências.
+    └── test_notion_sync.py               # Testes da idempotência, esquema e modo de simulação do Notion.
 ```
 
 Consulte também `docs/ARQUITETURA.md`, `docs/MAPA_DO_COLETOR.md`,

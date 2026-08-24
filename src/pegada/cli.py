@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import argparse
 import os
+from json import JSONDecodeError
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+
+from dotenv import load_dotenv
 
 from .collectors import GitHubCollector, OpenAlexCollector, WebCollector
 from .config import db_path, load_config, output_path
@@ -46,7 +50,8 @@ def cmd_collect(args: argparse.Namespace) -> None:
             items = collector.collect()
             for item in items: target.upsert(item)
             total += len(items); print(f"{source['name']}: {len(items)}")
-        except Exception as exc: print(f"{source['name']}: falhou ({exc})")
+        except (HTTPError, JSONDecodeError, KeyError, OSError, TypeError, URLError) as exc:
+            print(f"{source['name']}: falhou ({exc})")
     print(f"Total coletado/atualizado: {total}")
 
 
@@ -63,8 +68,14 @@ def cmd_report(_: argparse.Namespace) -> None:
     build_pdf(repository().all(), path); print(f"Relatório gerado: {path}")
 
 
-def cmd_notion(_: argparse.Namespace) -> None:
-    print(f"{sync(repository().all())} registros sincronizados com o Notion.")
+def cmd_notion(args: argparse.Namespace) -> None:
+    load_dotenv()
+    rows = repository().all()
+    if args.only_reviewed:
+        rows = [row for row in rows if row["identity_status"] == "reviewed"]
+    result = sync(rows, dry_run=args.dry_run)
+    mode = "Simulação" if args.dry_run else "Sincronização"
+    print(f"{mode} concluída: {result.created} novos, {result.updated} atualizados.")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -76,7 +87,10 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("collect"); p.add_argument("--config", type=Path, default=Path("config/collector.toml")); p.set_defaults(func=cmd_collect)
     p = sub.add_parser("export"); p.add_argument("--all", action="store_true"); p.set_defaults(func=cmd_export)
     p = sub.add_parser("report"); p.add_argument("--format", choices=["pdf"], default="pdf"); p.set_defaults(func=cmd_report)
-    p = sub.add_parser("notion-sync"); p.set_defaults(func=cmd_notion)
+    p = sub.add_parser("notion-sync")
+    p.add_argument("--dry-run", action="store_true", help="simula sem gravar no Notion")
+    p.add_argument("--only-reviewed", action="store_true", help="envia apenas itens revisados")
+    p.set_defaults(func=cmd_notion)
     return parser
 
 
