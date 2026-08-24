@@ -1,4 +1,4 @@
-# Gerador do Mapa da Pegada Digital — Aridio Silva
+# Gerador do Mapa da Pegada Digital
 
 Projeto reproduzível para coletar, registrar, revisar e publicar evidências públicas sobre a pegada digital de Aridio Silva. O pacote separa a **coleta de dados** da **geração do relatório**.
 
