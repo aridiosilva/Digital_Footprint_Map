@@ -53,6 +53,28 @@ pois dependem de disponibilidade, políticas e conteúdo de serviços públicos.
 Em pull requests e alterações na `main`, o GitHub Actions executa os mesmos
 testes e o lint automaticamente.
 
+## Atualizações e proteção da `main`
+
+A branch `main` é a versão estável do projeto e possui um ruleset ativo:
+
+- alterações devem ser enviadas por pull request; não há envio direto à `main`;
+- exclusão da branch e *force push* são bloqueados;
+- o check obrigatório `test` deve concluir com sucesso antes do merge;
+- a revisão obrigatória está configurada como zero, permitindo que o mantenedor
+  integre a própria PR depois que o check estiver aprovado.
+
+Para atualizar o projeto, crie uma branch, publique-a e abra uma pull request:
+
+```bash
+git switch -c feat/minha-alteracao
+git add .
+git commit -m "Descreva a alteração"
+git push -u origin feat/minha-alteracao
+```
+
+Depois de a CI ficar verde, a pull request poderá ser integrada à `main`. Esse
+fluxo protege o histórico estável sem exigir a participação de outro revisor.
+
 ## Uso rápido
 
 ```bash
