@@ -1,5 +1,7 @@
 # Gerador do Mapa da Pegada Digital
 
+[Português](README.md) | [English](README.en.md)
+
 Projeto reproduzível para coletar, registrar, revisar e publicar evidências públicas sobre a pegada digital de Aridio Silva. O pacote separa a **coleta de dados** da **geração do relatório**.
 
 ## O que está incluído
@@ -132,6 +134,7 @@ Digital_Footprint_Map/
 ├── Makefile                             # Atalhos para instalação, testes e execução das tarefas comuns.
 ├── pyproject.toml                       # Versão 1.1, dependências e configuração do pacote Python.
 ├── README.md                            # Visão geral, instalação, uso e orientações do projeto.
+├── README.en.md                         # Versão em inglês do README.
 │
 ├── config/
 │   └── collector.toml                   # Fontes públicas e parâmetros configuráveis dos coletores.
