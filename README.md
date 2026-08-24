@@ -184,8 +184,96 @@ Digital_Footprint_Map/
     └── test_notion_sync.py               # Testes da idempotência, esquema e modo de simulação do Notion.
 ```
 
-Consulte também `docs/ARQUITETURA.md`, `docs/MAPA_DO_COLETOR.md`,
-`docs/METODOLOGIA.md` e `docs/DICIONARIO_DE_DADOS.md` para detalhes.
+## Documentação detalhada
+
+### Arquitetura
+
+```mermaid
+flowchart TD
+    A[Configuração e sementes] --> B[Coletores]
+    B --> C[Normalização e Evidence]
+    C --> D[(SQLite)]
+    D --> E[Revisão de identidade]
+    E --> F[JSON / CSV / Markdown]
+    E --> G[PDF]
+    E -. notion-sync .-> H[Notion Data Source]
+```
+
+O `fingerprint` SHA-256 impede duplicação exata por URL, título e categoria. O
+status de identidade começa como `pending`; apenas evidências revisadas devem
+receber `reviewed`. Coletores falham isoladamente para que uma origem
+indisponível não interrompa as demais.
+
+A publicação no Notion é explícita e idempotente. Antes de gravar, o conector
+valida o esquema remoto e consulta os fingerprints existentes. Cada evidência é
+então criada ou atualizada; `--dry-run` permite verificar o plano sem
+alterações.
+
+### Mapa completo do coletor
+
+| Etapa | Entrada | Componente | Saída |
+|---|---|---|---|
+| Configuração | TOML e variáveis de ambiente | `config.py` | fontes e limites |
+| Coleta web | URL pública | `WebCollector` | título, resumo, URL final |
+| GitHub | usuário público | `GitHubCollector` | perfil e repositórios |
+| Acadêmico | consulta nominal | `OpenAlexCollector` | trabalhos candidatos |
+| Importação | CSV/JSON revisado | `importers.py` | evidências estruturadas |
+| Normalização | dados heterogêneos | `Evidence` | esquema único e hash |
+| Persistência | evidências | `Repository` | SQLite auditável |
+| Publicação | banco revisado | `exporters.py`, `report.py` | JSON, CSV, MD e PDF |
+| Integração com Notion | banco revisado | `notion_sync.py` | páginas na fonte de dados do Notion |
+
+#### Regras operacionais
+
+1. Não contornar autenticação, CAPTCHA ou bloqueios.
+2. Respeitar `robots.txt`, intervalo de requisições e termos de uso.
+3. Tratar resultados nominais como candidatos até revisão de identidade.
+4. Registrar URL, fonte, data, confiança e observações.
+5. Não afirmar contagem do Google Acadêmico sem verificação atual.
+6. Separar fato observado, inferência e declaração do titular.
+
+### Metodologia
+
+O mapa segue a cadeia: trajetória profissional → livros → referências acadêmicas
+→ GitHub → artigos → inteligência artificial.
+
+#### Classificação
+
+- `reviewed`: identidade conferida por múltiplos sinais ou pelo titular;
+- `pending`: candidato ainda não validado;
+- `rejected`: homônimo ou atribuição incorreta;
+- confiança entre 0 e 1 expressa força da atribuição, não qualidade do conteúdo.
+
+#### Fontes
+
+Fontes primárias e institucionais devem ter prioridade. Resultados de busca são
+pistas, não fontes finais. Google Acadêmico deve ser importado manualmente;
+Biblioteca Nacional deve receber URL/número oficial. Citações devem apontar para
+a obra que a utiliza e, quando possível, página e trecho curto.
+
+#### LGPD e ética
+
+Coletar somente dados públicos pertinentes ao propósito. Evitar dados
+sensíveis, endereços, telefones e informações familiares. Documentar correções
+e remoções. Não republicar páginas completas ou conteúdo protegido.
+
+### Dicionário de dados
+
+| Campo | Significado |
+|---|---|
+| `title` | título da evidência |
+| `url` | endereço ou URN estável |
+| `source` | origem editorial/institucional |
+| `category` | perfil, livro, acadêmico, repositório etc. |
+| `snippet` | resumo curto, sem copiar conteúdo extenso |
+| `published_at` | data/ano de publicação |
+| `authors` | autores declarados pela fonte |
+| `identifiers` | ISBN, DOI, OpenAlex e outros |
+| `collected_at` | instante UTC da coleta |
+| `identity_status` | pending, reviewed ou rejected |
+| `confidence` | confiança de 0 a 1 |
+| `notes` | ressalvas e tarefas de validação |
+| `fingerprint` | SHA-256 usado na deduplicação |
 
 ## Aviso
 
