@@ -1,0 +1,30 @@
+[subject]
+canonical_name = "Aridio Silva"
+aliases = ["Arídio Silva", "Aridio de Oliveira Silva", "aridiosilva"]
+keywords = ["tecnologia de objetos", "pregão eletrônico", "sistemas de informação", "inteligência artificial"]
+
+[collection]
+user_agent = "PegadaDigitalAridio/1.0 (+autoconsulta; contato do operador)"
+timeout_seconds = 20
+delay_seconds = 1.0
+respect_robots_txt = true
+max_pages_per_run = 50
+
+[[sources]]
+name = "GitHub público"
+type = "github"
+enabled = true
+username = "aridiosilva"
+
+[[sources]]
+name = "OpenAlex"
+type = "openalex"
+enabled = true
+query = "Aridio Silva"
+
+# Adicione páginas públicas confirmadas desta forma:
+# [[sources]]
+# name = "Editora Revan"
+# type = "web"
+# enabled = true
+# url = "https://exemplo.org/pagina-publica"
