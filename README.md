@@ -28,6 +28,31 @@ pip install -e '.[dev]'
 cp .env.example .env
 ```
 
+## Testes
+
+Instale as dependências de desenvolvimento e execute a suíte completa:
+
+```bash
+pip install -e '.[dev]'
+python -m pytest
+python -m ruff check .
+```
+
+Para testar apenas a integração com o Notion, sem token nem acesso à conta:
+
+```bash
+python -m pytest tests/test_notion_sync.py
+```
+
+Os testes usam diretórios temporários e clientes simulados; não gravam no
+SQLite do projeto nem enviam dados ao Notion. A suíte cobre modelos,
+deduplicação no banco, exportações e a sincronização idempotente do Notion.
+As coletas de fontes externas devem continuar sendo verificadas manualmente,
+pois dependem de disponibilidade, políticas e conteúdo de serviços públicos.
+
+Em pull requests e alterações na `main`, o GitHub Actions executa os mesmos
+testes e o lint automaticamente.
+
 ## Uso rápido
 
 ```bash

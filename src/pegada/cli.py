@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import os
+from json import JSONDecodeError
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 
 from dotenv import load_dotenv
 
@@ -48,7 +50,8 @@ def cmd_collect(args: argparse.Namespace) -> None:
             items = collector.collect()
             for item in items: target.upsert(item)
             total += len(items); print(f"{source['name']}: {len(items)}")
-        except Exception as exc: print(f"{source['name']}: falhou ({exc})")
+        except (HTTPError, JSONDecodeError, KeyError, OSError, TypeError, URLError) as exc:
+            print(f"{source['name']}: falhou ({exc})")
     print(f"Total coletado/atualizado: {total}")
 
 
