@@ -41,6 +41,7 @@
 
 - [x] 11. Implement `main()` dispatching via `args.func(args)`
 
-- [ ] 12. Write CLI integration tests
+- [x] 12. Write CLI integration tests
   - Test `init` idempotency; `import-seed` count; `export` file creation
-  - _Note: not yet in test suite — add in next iteration_
+  - _Implemented in tests/test_cli.py (23 tests)_
+
