@@ -53,6 +53,7 @@ geração de relatórios e mantém trilha de auditoria completa.
 | F-06 | PDF Report Generator | ✅ Implementado | [pdf-report](./pdf-report/requirements.md) |
 | F-07 | Notion Sync | ✅ Implementado | [notion-sync](./notion-sync/requirements.md) |
 | F-08 | CLI Interface | ✅ Implementado | [cli-interface](./cli-interface/requirements.md) |
+| BUG-REGISTRY | Bug Documentation Standard | ✅ Implementado | [bug-registry](./bug-registry/requirements.md) |
 
 ---
 
@@ -112,3 +113,17 @@ Todos os arquivos de spec ficam em `.kiro/specs/{feature-name}/`.
 └── steering/
     └── project-conventions.md         ← padrões e convenções do projeto
 ```
+
+---
+
+## Bug Registry
+
+Todos os bugs encontrados são documentados em `docs/bugs/`.
+
+- Índice central: [docs/bugs/BUG_REGISTRY.md](../../docs/bugs/BUG_REGISTRY.md)
+- Formato de ID: `BUG-XXXXX` (cinco dígitos, sequencial a partir de BUG-00001)
+
+| ID | Título | Status |
+|---|---|---|
+| [BUG-00001](../../docs/bugs/BUG-00001.md) | Whitespace em confidence CSV causa ValueError | Verified |
+
