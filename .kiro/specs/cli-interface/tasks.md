@@ -1,4 +1,4 @@
-# Tasks — F-08: CLI Interface
+# Tasks — F-0008: CLI Interface
 
 ## Status: ✅ Implemented (v1.0.0)
 

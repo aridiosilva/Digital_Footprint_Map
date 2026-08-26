@@ -1,4 +1,4 @@
-# Tasks — F-07: Notion Sync
+# Tasks — F-0007: Notion Sync
 
 ## Status: ✅ Implemented (v1.0.0)
 

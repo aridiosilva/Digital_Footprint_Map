@@ -45,14 +45,14 @@ geração de relatórios e mantém trilha de auditoria completa.
 
 | ID | Feature | Status | Spec |
 |---|---|---|---|
-| F-01 | Evidence Model & Fingerprint | ✅ Implementado | [evidence-model](./evidence-model/requirements.md) |
-| F-02 | Auditable SQLite Database | ✅ Implementado | [auditable-database](./auditable-database/requirements.md) |
-| F-03 | Evidence Collectors | ✅ Implementado | [evidence-collectors](./evidence-collectors/requirements.md) |
-| F-04 | Evidence Importers (CSV/JSON) | ✅ Implementado | [evidence-importers](./evidence-importers/requirements.md) |
-| F-05 | Evidence Exporters (JSON/CSV/MD) | ✅ Implementado | [evidence-exporters](./evidence-exporters/requirements.md) |
-| F-06 | PDF Report Generator | ✅ Implementado | [pdf-report](./pdf-report/requirements.md) |
-| F-07 | Notion Sync | ✅ Implementado | [notion-sync](./notion-sync/requirements.md) |
-| F-08 | CLI Interface | ✅ Implementado | [cli-interface](./cli-interface/requirements.md) |
+| F-0001 | Evidence Model & Fingerprint | ✅ Implementado | [evidence-model](./evidence-model/requirements.md) |
+| F-0002 | Auditable SQLite Database | ✅ Implementado | [auditable-database](./auditable-database/requirements.md) |
+| F-0003 | Evidence Collectors | ✅ Implementado | [evidence-collectors](./evidence-collectors/requirements.md) |
+| F-0004 | Evidence Importers (CSV/JSON) | ✅ Implementado | [evidence-importers](./evidence-importers/requirements.md) |
+| F-0005 | Evidence Exporters (JSON/CSV/MD) | ✅ Implementado | [evidence-exporters](./evidence-exporters/requirements.md) |
+| F-0006 | PDF Report Generator | ✅ Implementado | [pdf-report](./pdf-report/requirements.md) |
+| F-0007 | Notion Sync | ✅ Implementado | [notion-sync](./notion-sync/requirements.md) |
+| F-0008 | CLI Interface | ✅ Implementado | [cli-interface](./cli-interface/requirements.md) |
 | BUG-REGISTRY | Bug Documentation Standard | ✅ Implementado | [bug-registry](./bug-registry/requirements.md) |
 
 ---

@@ -1,4 +1,4 @@
-# Design — F-08: CLI Interface
+# Design — F-0008: CLI Interface
 
 ## Component
 

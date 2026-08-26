@@ -1,4 +1,4 @@
-# Tasks — F-06: PDF Report Generator
+# Tasks — F-0006: PDF Report Generator
 
 ## Status: ✅ Implemented (v1.0.0)
 
