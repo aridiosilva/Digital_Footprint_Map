@@ -27,6 +27,7 @@
 - [x] 8. Wire `build_pdf` into CLI `report` command (`cmd_report`)
   - Output path: `output/Mapa_Pegada_Digital_Aridio_Silva_Gerado.pdf`
 
-- [ ] 9. Add smoke test for PDF generation
+- [x] 9. Add smoke test for PDF generation
   - `build_pdf([], tmp_path / "test.pdf")` → file exists, starts with `%PDF`
-  - _Note: not yet in test suite — add in next iteration_
+  - _Implemented in tests/test_report.py (14 tests)_
+
