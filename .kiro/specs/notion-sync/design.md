@@ -1,4 +1,4 @@
-# Design — F-07: Notion Sync
+# Design — F-0007: Notion Sync
 
 ## Component
 

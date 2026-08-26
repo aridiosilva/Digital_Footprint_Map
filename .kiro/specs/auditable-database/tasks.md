@@ -1,4 +1,4 @@
-# Tasks — F-02: Auditable SQLite Database
+# Tasks — F-0002: Auditable SQLite Database
 
 ## Status: ✅ Implemented (v1.0.0)
 

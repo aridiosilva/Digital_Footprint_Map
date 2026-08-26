@@ -1,4 +1,4 @@
-# Design — F-06: PDF Report Generator
+# Design — F-0006: PDF Report Generator
 
 ## Component
 

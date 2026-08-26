@@ -1,4 +1,4 @@
-# Tasks — F-01: Evidence Model & Fingerprint
+# Tasks — F-0001: Evidence Model & Fingerprint
 
 ## Status: ✅ Implemented (v1.0.0)
 

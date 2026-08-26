@@ -1,4 +1,4 @@
-# Requirements — F-07: Notion Sync
+# Requirements — F-0007: Notion Sync
 
 ## Introduction
 

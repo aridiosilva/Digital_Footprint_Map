@@ -1,4 +1,4 @@
-# Design — F-01: Evidence Model & Fingerprint
+# Design — F-0001: Evidence Model & Fingerprint
 
 ## Component
 
@@ -60,12 +60,12 @@ No external dependencies.
 
 | Feature | How it uses Evidence |
 |---|---|
-| F-02 auditable-database | `Repository.upsert(item: Evidence)` |
-| F-03 evidence-collectors | Collectors return `list[Evidence]` |
-| F-04 evidence-importers | Importers return `list[Evidence]` |
-| F-05 evidence-exporters | Exporters receive `list[dict]` from `repo.all()` |
-| F-06 pdf-report | Report receives `list[dict]` |
-| F-07 notion-sync | Sync receives `list[dict]` |
+| F-0002 auditable-database | `Repository.upsert(item: Evidence)` |
+| F-0003 evidence-collectors | Collectors return `list[Evidence]` |
+| F-0004 evidence-importers | Importers return `list[Evidence]` |
+| F-0005 evidence-exporters | Exporters receive `list[dict]` from `repo.all()` |
+| F-0006 pdf-report | Report receives `list[dict]` |
+| F-0007 notion-sync | Sync receives `list[dict]` |
 
 ---
 

@@ -87,3 +87,13 @@ Todo trabalho novo deve ter spec antes de código:
 
 Specs ficam em `.kiro/specs/{feature-name}/`.
 Não modificar código sem spec correspondente aprovada.
+
+## Identificadores de feature e bug
+
+- Features usam o formato `F-XXXX` (quatro dígitos, zero-padded), de `F-0001` a `F-9999`.
+  Exemplo: `F-0001`, `F-0009`, `F-0010`.
+- Bugs usam o formato `BUG-XXXXX` (cinco dígitos, zero-padded), de `BUG-00001` a `BUG-99999`.
+- Nunca usar o formato antigo de dois dígitos (`F-01`, `F-08`).
+- Próxima feature disponível: `F-0009`.
+- Próximo bug disponível: `BUG-00002`.
+

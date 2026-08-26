@@ -1,4 +1,4 @@
-# Requirements — F-06: PDF Report Generator
+# Requirements — F-0006: PDF Report Generator
 
 ## Introduction
 

@@ -1,4 +1,4 @@
-# Design — F-02: Auditable SQLite Database
+# Design — F-0002: Auditable SQLite Database
 
 ## Component
 
