@@ -20,5 +20,6 @@ def from_csv(path: Path, category: str) -> list[Evidence]:
                          published_at=r.get("published_at") or None,
                          authors=[x.strip() for x in r.get("authors", "").split(";") if x.strip()],
                          identity_status=r.get("identity_status") or "pending",
-                         confidence=float(r.get("confidence") or .5), notes=r.get("notes", ""))
+                         confidence=float(r.get("confidence", "").strip() or 0.5), notes=r.get("notes", ""))
                 for r in rows]
+

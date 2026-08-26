@@ -18,8 +18,9 @@
   - `cmd_import_seed`: calls `from_json`, then `repo.upsert` per item
   - `cmd_import_csv`: calls `from_csv(path, args.kind)`, then `repo.upsert` per item
 
-- [ ] 4. Write unit tests for importers
+- [x] 4. Write unit tests for importers
   - `test_from_json_round_trip`: write JSON, read back, compare fields
   - `test_from_csv_defaults`: minimal CSV (title + url), verify defaults
   - `test_from_csv_authors_split`: verify `"A; B"` → `["A", "B"]`
-  - _Note: not yet in test suite — add in next iteration_
+  - _Implemented in tests/test_importers.py (17 tests)_
+
